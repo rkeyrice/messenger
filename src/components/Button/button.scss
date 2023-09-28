@@ -1,0 +1,25 @@
+.defaultButton,
+.linkButton {
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.defaultButton {
+  background-color: rgb(4, 149, 245);
+  color: white;
+  padding: 8px 48px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  transition: 0.1s linear;
+
+  &:hover,
+  &:focus {
+    background-color: rgb(0, 204, 255);
+  }
+}
+
+.linkButton {
+  color: rgb(0, 204, 255);
+  background: none;
+}
