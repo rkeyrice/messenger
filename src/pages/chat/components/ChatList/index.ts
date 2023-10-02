@@ -2,9 +2,6 @@ import Handlebars from "handlebars";
 import { tmpl } from "./chatlist.tmpl";
 import { Chat } from "../Chat";
 
-const lorem =
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi eaque commodi nemo earum rerum assumenda sequi doloremque soluta, dolores vero debitis accusamus repellendus architecto possimus. Assumenda neque quia atque.";
-
 const chats = [
   {
     name: "Rick",

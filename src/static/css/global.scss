@@ -11,3 +11,19 @@ ul {
 li {
   list-style: none;
 }
+
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+input,
+textarea {
+  outline: none;
+  border: none;
+  &:disabled {
+    background-color: transparent;
+  }
+}

@@ -1,6 +1,5 @@
 import Handlebars from "handlebars";
 import { tmpl } from "./card.tmpl";
-import "./card.scss";
 
 interface CardProps {
   title: string;

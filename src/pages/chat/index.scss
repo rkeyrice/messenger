@@ -1,3 +1,5 @@
+$border: 1px solid #eaeaea;
+
 .chat_wrapper {
   display: grid;
   grid-template-columns: 1fr 4fr;
@@ -12,9 +14,6 @@
 
 .chat_list_header {
   button {
-    outline: none;
-    border: none;
-    cursor: pointer;
     background-color: transparent;
     display: block;
     margin: 0 15px 24px auto;
@@ -36,7 +35,7 @@
     display: block;
     width: 100%;
     border-radius: 5px;
-    background-image: url("../../static//images/search.svg");
+    background-image: url("../../static/images/search.svg");
     background-repeat: no-repeat;
     background-position: 40% center;
     background-color: #efefef;
@@ -54,8 +53,52 @@
   }
 }
 
-.chats_list {
+.dialog_wrapper {
+  padding: 10px 20px;
+}
+
+.dialog_header {
+  display: flex;
+  justify-content: space-between;
+  div {
+    display: flex;
+    align-items: center;
+  }
+  padding-bottom: 10px;
+  border-bottom: $border;
+}
+
+.dialog_avatar {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #efefef;
+  margin-right: 15px;
+}
+
+.dialog {
+  height: 90vh;
   overflow: hidden;
   overflow-y: scroll;
-  height: calc(100vh - 86px);
+  scroll-snap-type: y mandatory;
+  scroll-snap-align: end;
+}
+
+.dialog_textarea {
+  border-top: $border;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  textarea {
+    width: 100%;
+    resize: none;
+    border-radius: 30px;
+    background: #efefef;
+    max-height: 40px;
+    padding: 11px;
+  }
+  button {
+    height: 32px;
+  }
 }
