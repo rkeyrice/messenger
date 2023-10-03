@@ -1,6 +1,6 @@
 import Handlebars from "handlebars";
-import { tmpl } from "./messageList.tmpl";
-import { Message } from "../Message";
+import { tmpl } from "./messegeList.tmpl";
+import { Message } from "../Messege";
 
 export const MessageList = () => {
   const messages = [

@@ -1,8 +1,6 @@
-import { root } from "../../../index";
 import { PersonCard } from "../../components/PersonCard";
 import { Button } from "../../components/Button";
 import { profileFields } from "../../static/data";
-import { goTo } from "../../utils";
 
 const buttons = [
   {
@@ -26,11 +24,4 @@ const buttons = [
   },
 ].map((e) => Button(e));
 
-document.addEventListener("DOMContentLoaded", () => {
-  if (root) {
-    root.innerHTML = PersonCard({ buttons, fields: profileFields });
-  }
-  goTo("change_data", "/src/pages/changeProfile/index.html");
-  goTo("change_password", "/src/pages/changePassword/index.html");
-  goTo("go_back", "/src/pages/chat/index.html");
-});
+export const Profile = PersonCard({ buttons, fields: profileFields });

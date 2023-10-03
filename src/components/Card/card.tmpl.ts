@@ -1,6 +1,7 @@
 import css from "./card.module.scss";
 
 export const tmpl = `
+<div class="{{#if center}} ${css.center} {{/if}}">
 <div class=${css.card}>
     <div class=${css.title}>
         {{title}}
@@ -15,4 +16,5 @@ export const tmpl = `
             {{/each}}
         </div>
     </form>
+    </div>
 `;

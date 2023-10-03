@@ -5,17 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "tsc && vite build",
-    "start": "tsc && vite build && node server.js"
+    "build": "vite build",
+    "start": "vite build && node server.js"
   },
   "devDependencies": {
     "express": "^4.18.2",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
-    "vite-plugin-handlebars": "^1.6.0",
-    "sass": "^1.68.0"
+    "vite-plugin-handlebars": "^1.6.0"
   },
   "dependencies": {
-    "handlebars": "^4.7.8"
+    "handlebars": "^4.7.8",
+    "sass": "^1.68.0"
   }
 }

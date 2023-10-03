@@ -9,7 +9,7 @@ interface ErrorProps {
 
 export const Error = (props: ErrorProps) => {
   return Handlebars.compile(tmpl)({
-    Button: Button({ likeLink: true, text: "назад к чатам", type = "button" }),
+    Button: Button({ likeLink: true, text: "назад к чатам", type: "button" }),
     ...props,
   });
 };

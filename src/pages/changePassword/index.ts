@@ -31,12 +31,7 @@ const saveDataButton = [
   },
 ].map((e) => Button(e));
 
-document.addEventListener("DOMContentLoaded", () => {
-  if (root) {
-    root.innerHTML = PersonCard({
-      buttons: saveDataButton,
-      fields: changePasswordFields,
-    });
-  }
-  goTo("go_back", "/src/pages/chat/index.html");
+export const ChangePassword = PersonCard({
+  buttons: saveDataButton,
+  fields: changePasswordFields,
 });

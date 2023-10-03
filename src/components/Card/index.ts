@@ -3,8 +3,9 @@ import { tmpl } from "./card.tmpl";
 
 interface CardProps {
   title: string;
-  inputs: string[];
+  inputs?: string[];
   buttons: string[];
+  center?: boolean;
 }
 
 export const Card = (props: CardProps) => {

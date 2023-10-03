@@ -1,4 +1,4 @@
-import css from './personCard.module.scss'
+import css from "./personCard.module.scss";
 
 export const tmpl = `
     <div class=${css.wrapper}>
@@ -46,8 +46,8 @@ export const tmpl = `
         </div>
         {{#if changeAvatar}}
             <div id="popup" class=${css.popup_wrapper}>
-                    {{{Popup}}}
+                    {{{popup}}}
             </div>
         {{/if}}
     </div>
-`
+`;

@@ -1,3 +1,11 @@
+.center {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .card {
   max-width: 440px;
   padding: 100px 50px 50px 50px;

@@ -1,8 +1,8 @@
 import Handlebars from "handlebars";
-import { tmpl } from "./message.tmpl";
+import { tmpl } from "./messege.tmpl";
 
 interface MessageProps {
-  message: string;
+  message?: string;
   time?: number;
   read?: boolean;
   fromMe?: boolean;
