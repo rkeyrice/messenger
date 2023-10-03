@@ -1,7 +1,5 @@
-import { root } from "../../../index";
 import { PersonCard } from "../../components/PersonCard";
 import { Button } from "../../components/Button";
-import { goTo } from "../../utils";
 
 const changePasswordFields = [
   {
