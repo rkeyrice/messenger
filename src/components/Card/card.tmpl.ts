@@ -1,7 +1,7 @@
 import css from "./card.module.scss";
 
 export const tmpl = `
-<div class="{{#if center}} ${css.center} {{/if}}">
+{{#if center}}<main class="${css.center}">{{/if}}
 <div class=${css.card}>
     <div class=${css.title}>
         {{title}}
@@ -17,4 +17,5 @@ export const tmpl = `
         </div>
     </form>
     </div>
+    {{#if center}} </main>{{/if}}
 `;

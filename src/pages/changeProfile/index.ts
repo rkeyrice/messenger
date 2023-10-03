@@ -26,13 +26,13 @@ const disabledFields = [
     label: "Фамилия",
     value: "Sanchez",
     isDisabled: true,
-    name: "last_name",
+    name: "second_name",
   },
   {
     label: "Имя в чате",
     value: "Rick",
     isDisabled: true,
-    name: "chat_name",
+    name: "display_name",
   },
   {
     label: "Телефон",

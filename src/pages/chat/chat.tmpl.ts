@@ -1,7 +1,7 @@
 import css from "./chat.module.scss";
 
 export const tmpl = `
-<div class=${css.chat_wrapper} >
+<main class=${css.chat_wrapper} >
 <div  class=${css.list_wrapper}>
   <div  class=${css.chat_list_header}>
     <button id="go_profile">
@@ -63,5 +63,5 @@ export const tmpl = `
   </div>
 </div>
 </div>
-<div></div>
+<div></main>
 `;

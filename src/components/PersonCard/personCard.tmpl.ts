@@ -9,7 +9,7 @@ export const tmpl = `
                     <path d="M13 19L9 14L13 9" stroke="white" stroke-width="1.6"/>
                 </svg>
             </button>
-        <div class=${css.content_wrapper}>
+        <main class=${css.content_wrapper}>
             <div class=${css.avatar_wrapper}>
                 <div id="avatar" class="${css.avatar_img}  {{#if changeAvatar}}${css.change_avatar}{{/if}}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
@@ -43,7 +43,7 @@ export const tmpl = `
                     {{/each}}
                 {{/if}} 
             </div>
-        </div>
+        </main>
         {{#if changeAvatar}}
             <div id="popup" class=${css.popup_wrapper}>
                     {{{popup}}}
