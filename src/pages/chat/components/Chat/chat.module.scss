@@ -1,0 +1,45 @@
+.chats_item {
+  border-top: 1px solid #eaeaea;
+  padding: 12px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  .img {
+    width: 47px;
+    height: 47px;
+    border-radius: 50%;
+    background-color: #efefef;
+  }
+}
+.text_content {
+  max-width: 400px;
+  width: 100%;
+  margin-left: 15px;
+  p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #999;
+    margin-bottom: 0;
+  }
+}
+
+.name {
+  font-weight: 500;
+}
+
+.unreadMessages {
+  margin-top: 22px;
+  border-radius: 50%;
+  color: white;
+  background: #3369f3;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-size: 11px;
+  padding-top: 3px;
+}
+
+.time {
+  font-size: 9px;
+  color: #999;
+}

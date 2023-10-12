@@ -1,0 +1,37 @@
+.center {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  max-width: 440px;
+  padding: 100px 50px 50px 50px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0px 0px 6px 0px #00000024;
+  background-color: white;
+
+  .title {
+    color: #1e1e1e;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  .inputs_wrapper {
+    margin-bottom: 24px;
+  }
+
+  .buttons_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    button {
+      margin-bottom: 24px;
+    }
+  }
+}
