@@ -1,7 +1,7 @@
-import css from "./messege.module.scss";
+import css from './message.module.scss';
 
 export const tmpl = `
- <li class="${css.message} {{#if fromMe}}${css.fromMe} {{/if}}">
+ <li class="${css.message} {{#if fromMe}}${css['from-me']} {{/if}}">
        {{message}}
    <div class=${css.time}>
                  {{#if fromMe}}

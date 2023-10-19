@@ -1,0 +1,32 @@
+.input-wrapper {
+  margin-bottom: 24px;
+}
+
+.input {
+  width: 100%;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #0cf;
+  border-radius: 4px;
+  padding: 4px 0;
+  transition: 0.3s linear;
+}
+
+.label {
+  font-size: 10px;
+  left: 0;
+  top: 0;
+  color: #999;
+  margin-right: auto;
+
+  &:hover {
+    .input {
+      background-color: #00ccff0d;
+    }
+  }
+}
+
+.error {
+  color: #ff2600;
+  margin-top: 4px;
+}

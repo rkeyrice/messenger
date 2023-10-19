@@ -1,2 +1,16 @@
-link to pull request sprint_1 https://github.com/rkeyrice/middle.messenger.praktikum.yandex/pull/3
+проект messanger  -  это мессенджер написанный на ванильном javascript, c реактивным поведением, за счет ипользования класса Block,  что дает реактивности на изменение пропсов компонентам. 
 
+На проекте добавлены такие библиотеки как:
+    1) handlebars (для шаблонизации компонентов)
+    2) Eslint (наследуется от правил airbnb c  небольшой своей модификацией)
+    3) Sylelnt ( наследуется от правилstylelint-config-standard-scss)
+    4) Vite -  для сборки проекта
+    5) express - для собственного сервера, который отдает статику
+    6) SASS
+
+Команды скриптов:
+    1) npm run dev - для запуска проекта на сервере vite
+    2) npm run start - для билда проекта и раздачи статики на собственном сервере
+    3) npm run build -  для билда проекта
+
+ссылка на собранный проект на netlify: https://tranquil-pavlova-bfd644.netlify.app/login

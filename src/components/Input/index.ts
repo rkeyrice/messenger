@@ -1,15 +1,13 @@
-import Handlebars from "handlebars";
-import { tmpl } from "./input.tmpl";
-import "./input.scss";
+import { tmpl } from './input.tmpl';
+import Block from '../../utils/Block';
+import { InputProps } from '../../utils/types';
 
-interface InputProps {
-  type: string;
-  label: string;
-  name: string;
-  error?: boolean;
-  errorMessage?: string;
+export class InputBlock extends Block {
+  constructor(props: InputProps) {
+    super({ propsWithChildren: props, tagName: 'div' });
+  }
+
+  render(): DocumentFragment {
+    return this.compile(tmpl, this.props);
+  }
 }
-
-export const Input = (props: InputProps) => {
-  return Handlebars.compile(tmpl)(props);
-};

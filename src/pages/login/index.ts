@@ -1,35 +1,61 @@
-import { Card } from "../../components/Card";
-import { Input } from "../../components/Input";
-import { Button } from "../../components/Button";
+import { CardBlock } from '../../components/Card';
+import { FormBlock } from '../../components/Form';
+import { formSubmit, goTo } from '../../utils/helpers';
+import { validate } from '../../utils/validators';
+import Block from '../../utils/Block';
 
 const inputs = [
   {
-    label: "Логин",
-    type: "input",
-    name: "login",
-    errorMessage: "Неверный логин",
+    label: 'Логин',
+    type: 'input',
+    name: 'login',
+    value: '',
+    errorMessage: 'Неверный логин',
     error: false,
+    events: {
+      blur: validate,
+    },
   },
   {
-    label: "Пароль",
-    type: "password",
-    name: "password",
-    errorMessage: "Неверный пароль",
-    error: true,
+    label: 'Пароль',
+    type: 'password',
+    name: 'password',
+    errorMessage: 'Неверный пароль',
+    error: false,
+    events: {
+      blur: validate,
+    },
   },
-].map((e) => Input(e));
+];
 
 const buttons = [
   {
-    text: "Авторизоваться",
-    type: "submit",
+    text: 'Авторизоваться',
+    type: 'submit',
   },
   {
-    text: "Нет аккаунта?",
-    type: "button",
+    text: 'Нет аккаунта?',
+    type: 'button',
     likeLink: true,
-    id: "registration",
+    id: 'registration',
+    events: {
+      click: ():void => goTo('/registration'),
+    },
   },
-].map((e) => Button(e));
+];
 
-export const Login = Card({ title: "Вход", inputs, buttons, center: true });
+export const Login = (root:Element):void => {
+  const content:Block = new FormBlock(
+    {
+      inputs,
+      buttons,
+      events: { submit: (e:Event):void => { formSubmit(e, content.children.inputs); } },
+    },
+  );
+
+  const component:Block = new CardBlock({ title: 'Вход', content, center: true });
+
+  root.append(component.element!);
+
+  component.dispatchComponentDidMount();
+};

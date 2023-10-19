@@ -1,3 +1,9 @@
-import { Error } from "../../components/Error";
+import { ErrorBlock } from '../../components/Error';
 
-export const Error404 = Error({ number: 404, text: "Не туда попали" });
+export const Error404 = (root:Element):void => {
+  const component = new ErrorBlock({ number: 404, text: 'Не туда попали' });
+
+  root.append(component.element!);
+
+  component.dispatchComponentDidMount();
+};

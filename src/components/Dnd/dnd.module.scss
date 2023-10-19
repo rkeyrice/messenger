@@ -3,17 +3,21 @@
     width: 0;
     height: 0;
   }
+
   cursor: pointer;
+
   div {
-    color: rgb(0, 204, 255);
-    border-bottom: 1px solid rgb(0, 204, 255);
+    color: #0cf;
+    border-bottom: 1px solid #0cf;
     padding-bottom: 3px;
     display: inline;
   }
-  transition: 0.2s leaner;
+
+  transition: 0.2s linear;
+
   &:hover {
     div {
-      color: rgb(0, 175, 224);
+      color: #00afe0;
     }
   }
 }
