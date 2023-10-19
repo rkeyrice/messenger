@@ -1,14 +1,13 @@
-import Handlebars from "handlebars";
-import { tmpl } from "./button.tmpl";
+import { tmpl } from './button.tmpl';
+import Block from '../../utils/Block';
+import { ButtonProps } from '../../utils/types';
 
-interface ButtonProps {
-  type: string;
-  text: string;
-  likeLink?: boolean;
-  redLink?: boolean;
-  id?: string;
+export class ButtonBlock extends Block {
+  constructor(props: ButtonProps) {
+    super({ propsWithChildren: props, tagName: 'div' });
+  }
+
+  render(): DocumentFragment {
+    return this.compile(tmpl, this.props);
+  }
 }
-
-export const Button = (props: ButtonProps) => {
-  return Handlebars.compile(tmpl)({ ...props });
-};

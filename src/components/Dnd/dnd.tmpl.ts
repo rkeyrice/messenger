@@ -1,4 +1,4 @@
-import css from "./dnd.module.scss";
+import css from './dnd.module.scss';
 
 export const tmpl = `
   <label class=${css.dnd}>

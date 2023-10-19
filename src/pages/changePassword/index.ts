@@ -1,35 +1,52 @@
-import { PersonCard } from "../../components/PersonCard";
-import { Button } from "../../components/Button";
+import { PersonCardBlock } from '../../components/PersonCard';
+import { goBackFromProfile } from '../../utils/helpers';
+import { validate } from '../../utils/validators';
 
 const changePasswordFields = [
   {
-    label: "Старый пароль",
-    value: "+321321",
-    type: "password",
-    name: "oldPassword",
+    label: 'Старый пароль',
+    type: 'password',
+    name: 'oldPassword',
+    errorMessage: 'неверный формат',
+    events: {
+      blur: validate,
+    },
   },
   {
-    label: "Новый пароль",
-    value: "+321321",
-    type: "password",
-    name: "newPassword",
+    label: 'Новый пароль',
+    type: 'password',
+    name: 'newPassword',
+    errorMessage: 'неверный формат',
+    events: {
+      blur: validate,
+    },
   },
   {
-    label: "Повторите новый пароль",
-    value: "+321321",
-    type: "password",
-    name: "newPassword",
+    label: 'Повторите новый пароль',
+    type: 'password',
+    name: 'repeatNewPassword',
+    errorMessage: 'неверный формат',
+    events: {
+      blur: validate,
+    },
   },
 ];
 
-const saveDataButton = [
+const buttons = [
   {
-    text: "Сохранить",
-    type: "button",
+    text: 'Сохранить',
+    type: 'submit',
   },
-].map((e) => Button(e));
+];
 
-export const ChangePassword = PersonCard({
-  buttons: saveDataButton,
-  fields: changePasswordFields,
-});
+export const ChangePassword = (root:Element):void => {
+  const component = new PersonCardBlock({
+    inputs: changePasswordFields,
+    buttons,
+  });
+
+  root.append(component.element!);
+
+  component.dispatchComponentDidMount();
+  goBackFromProfile('/profile');
+};

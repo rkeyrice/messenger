@@ -1,36 +1,38 @@
 $border: 1px solid #eaeaea;
 
-.chat_wrapper {
+.chat-wrapper {
   display: grid;
   grid-template-columns: 1fr 4fr;
   height: 100vh;
 }
 
-.list_wrapper {
+.list-wrapper {
   border-right: 2px solid #eaeaea;
-  padding: 20px 10px 0 10px;
+  padding: 20px 10px 0;
   max-width: 600px;
 }
 
-.chat_list_header {
+.chat-list-header {
   button {
     background-color: transparent;
-    display: block;
     margin: 0 15px 24px auto;
     color: #999;
     font-size: 12px;
     display: flex;
+
     svg {
       margin: 2px 0 0 6px;
     }
 
     &:hover {
       color: #383838;
+
       path {
         stroke: #383838;
       }
     }
   }
+
   input {
     display: block;
     width: 100%;
@@ -53,22 +55,24 @@ $border: 1px solid #eaeaea;
   }
 }
 
-.dialog_wrapper {
+.dialog-wrapper {
   padding: 10px 20px;
 }
 
-.dialog_header {
+.dialog-header {
   display: flex;
   justify-content: space-between;
+
   div {
     display: flex;
     align-items: center;
   }
+
   padding-bottom: 10px;
   border-bottom: $border;
 }
 
-.dialog_avatar {
+.dialog-avatar {
   display: inline-block;
   width: 34px;
   height: 34px;
@@ -78,27 +82,10 @@ $border: 1px solid #eaeaea;
 }
 
 .dialog {
-  height: 90vh;
+  max-height: 90vh;
+  height: 100%;
   overflow: hidden;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-snap-align: end;
-}
-
-.dialog_textarea {
-  border-top: $border;
-  padding: 10px 0;
-  display: flex;
-  align-items: center;
-  textarea {
-    width: 100%;
-    resize: none;
-    border-radius: 30px;
-    background: #efefef;
-    max-height: 40px;
-    padding: 11px;
-  }
-  button {
-    height: 32px;
-  }
 }

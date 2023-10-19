@@ -1,87 +1,97 @@
-import Handlebars from "handlebars";
-import { tmpl } from "./chatlist.tmpl";
-import { Chat } from "../Chat";
+import { tmpl } from './chatlist.tmpl';
+import Block from '../../../../utils/Block';
+import { ChatBlock } from '../Chat';
 
 const chats = [
   {
-    name: "Rick",
+    name: 'Rick',
     message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi",
-    time: "12:33",
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi',
+    time: '12:33',
   },
   {
-    name: "Kristina",
+    name: 'Kristina',
     message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi",
-    time: "12:33",
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi',
+    time: '12:33',
   },
   {
-    name: "Eldar",
+    name: 'Eldar',
     message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi",
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi',
     unreadMessages: 6,
-    time: "12:33",
+    time: '12:33',
   },
   {
-    name: "Mike",
+    name: 'Mike',
     message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi",
-    time: "12:33",
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi',
+    time: '12:33',
   },
   {
-    name: "Marina",
+    name: 'Marina',
     message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi",
-    time: "12:33",
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi',
+    time: '12:33',
   },
   {
-    name: "Lana",
+    name: 'Lana',
     message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi",
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi',
     unreadMessages: 1,
-    time: "12:33",
+    time: '12:33',
   },
   {
-    name: "Rick",
+    name: 'Rick',
     message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi",
-    time: "12:33",
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi',
+    time: '12:33',
   },
   {
-    name: "Kristina",
+    name: 'Kristina',
     message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi",
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi',
     unreadMessages: 3,
-    time: "12:33",
+    time: '12:33',
   },
   {
-    name: "Eldar",
+    name: 'Eldar',
     message:
-      "Lorem ipsum dolor sit amet consectetur adipisiciit amet consectetur adipisicinng elit. Eos, modi",
+      'Lorem ipsum dolor sit amet consectetur adipisiciit amet consectetur adipisicinng elit. Eos, modi',
     unreadMessages: 6,
-    time: "12:33",
+    time: '12:33',
   },
   {
-    name: "Mike",
+    name: 'Mike',
     message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi",
-    time: "12:33",
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi',
+    time: '12:33',
   },
   {
-    name: "Marina",
+    name: 'Marina',
     message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi",
-    time: "12:33",
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi',
+    time: '12:33',
   },
   {
-    name: "Lana",
+    name: 'Lana',
     message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi",
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, modi',
     unreadMessages: 1,
-    time: "12:33",
+    time: '12:33',
   },
-].map((e) => Chat(e));
+];
 
-export const ChatList = () => {
-  return Handlebars.compile(tmpl)({ chats });
-};
+export class ChatListBlock extends Block {
+  constructor() {
+    super({ propsWithChildren: {}, tagName: 'div' });
+  }
+
+  init(): void {
+    this.children.chats = chats.map((e) => new ChatBlock(e));
+  }
+
+  render(): DocumentFragment {
+    return this.compile(tmpl, this.props);
+  }
+}
