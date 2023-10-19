@@ -1,5 +1,5 @@
-import Handlebars from "handlebars";
-import { tmpl } from "./messege.tmpl";
+import Block from '../../../../utils/Block';
+import { tmpl } from './message.tmpl';
 
 interface MessageProps {
   message: string;
@@ -8,6 +8,12 @@ interface MessageProps {
   fromMe?: boolean | undefined;
 }
 
-export const Message = (props: MessageProps) => {
-  return Handlebars.compile(tmpl)(props);
-};
+export class MessageBlock extends Block {
+  constructor(props:MessageProps) {
+    super({ propsWithChildren: props });
+  }
+
+  render(): DocumentFragment {
+    return this.compile(tmpl, this.props);
+  }
+}

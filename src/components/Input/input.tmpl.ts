@@ -1,10 +1,12 @@
+import css from './input.module.scss';
+
 export const tmpl = `
-<div class="input_wrapper">
-    <label  class="label">
+<div class="${css['input-wrapper']}">
+    <label  class="${css.label}">
     {{label}}
-    <input name={{name}} type={{type}} class="input" >
+    <input name="{{name}}" value="{{value}}" type="{{type}}" class="${css.input}">
     {{#if error}}
-    <div class="error">{{errorMessage}}</div>
+    <div  class="${css.error}">{{errorMessage}}</div>
     {{/if}} 
     </label>          
 </div>

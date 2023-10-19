@@ -1,9 +1,9 @@
-import css from "./chat.module.scss";
+import css from './chat.module.scss';
 
 export const tmpl = `
-<li  class=${css.chats_item}>
+<li  class=${css['chats-item']}>
    <div class=${css.img}></div>
-    <div class=${css.text_content}>
+    <div class=${css['text-content']}>
         <div class=${css.name}>{{name}}</div>
          <p>{{message}}</p>
     </div>
@@ -12,7 +12,7 @@ export const tmpl = `
             {{time}}
         </div>
         {{#if unreadMessages}}
-        <div class=${css.unreadMessages}>
+        <div class=${css['unread-messages']}>
              {{unreadMessages}}
         </div>
         {{/if}} 

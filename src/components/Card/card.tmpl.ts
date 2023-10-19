@@ -1,4 +1,4 @@
-import css from "./card.module.scss";
+import css from './card.module.scss';
 
 export const tmpl = `
 {{#if center}}<main class="${css.center}">{{/if}}
@@ -6,16 +6,7 @@ export const tmpl = `
     <div class=${css.title}>
         {{title}}
     </div>
-    <form>
-            {{#each inputs}}
-                {{{this}}}
-            {{/each}}
-        <div class=${css.buttons_wrapper}>
-            {{#each buttons}}
-                {{{this}}}
-            {{/each}}
-        </div>
-    </form>
+    <div>{{{content}}}</div>
     </div>
     {{#if center}} </main>{{/if}}
 `;

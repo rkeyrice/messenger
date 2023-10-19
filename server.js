@@ -1,5 +1,5 @@
-import express from 'express'
-import path from 'path'
+import express from 'express';
+import path from 'path';
 
 const app = express();
 const PORT = 3000;
@@ -11,8 +11,8 @@ const currentModulePath = new URL(import.meta.url).pathname;
 app.get('*', (req, res) => {
   const indexPath = path.join(path.dirname(currentModulePath), 'dist', 'index.html');
   res.sendFile(indexPath);
-})
+});
 
-app.listen(PORT, function () {
+app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });

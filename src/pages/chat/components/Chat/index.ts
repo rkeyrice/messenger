@@ -1,5 +1,5 @@
-import Handlebars from "handlebars";
-import { tmpl } from "./chat.tmpl";
+import { tmpl } from './chat.tmpl';
+import Block from '../../../../utils/Block';
 
 interface ChatListProps {
   name: string;
@@ -7,6 +7,12 @@ interface ChatListProps {
   unreadMessages?: number;
 }
 
-export const Chat = (props: ChatListProps) => {
-  return Handlebars.compile(tmpl)(props);
-};
+export class ChatBlock extends Block {
+  constructor(props:ChatListProps) {
+    super({ propsWithChildren: props, tagName: 'div' });
+  }
+
+  render(): DocumentFragment {
+    return this.compile(tmpl, this.props);
+  }
+}
