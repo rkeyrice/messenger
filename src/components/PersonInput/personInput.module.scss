@@ -1,0 +1,44 @@
+$border: 1px solid #EAEAEA;
+
+.field {
+  font-size: 13px;
+  color: #1E1E1E;
+  font-weight: 500;
+  transition: .2s linear;
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 24px;
+
+
+  .input {
+    color: #999;
+    text-align: end;
+    width: 100%;
+    border-bottom: $border;
+    padding: 10px 0;
+    transition: .2s leaner;
+
+    &:focus {
+      border-color: #3369f3;
+    }
+  }
+
+  &:hover {
+    .input {
+      border-color: #3369f3;
+    }
+  }
+
+  .label {
+    display: inline;
+    position: absolute;
+    top: 10px;
+    left: 0;
+  }
+}
+
+.error {
+  color: #ff2600;
+  margin-top: 4px;
+  font-size: 10px;
+}

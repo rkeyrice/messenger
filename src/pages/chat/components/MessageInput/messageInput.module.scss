@@ -1,0 +1,26 @@
+$border: 1px solid #eaeaea;
+
+.dialog-textarea {
+  border-top: $border;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+
+  textarea {
+    width: 100%;
+    resize: none;
+    border-radius: 30px;
+    background: #efefef;
+    max-height: 40px;
+    padding: 11px;
+  }
+
+  button {
+    height: 32px;
+  }
+}
+
+.dialog-textarea-error {
+  font-size: 11px;
+  text-align: center;
+}

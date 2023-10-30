@@ -1,13 +1,19 @@
-import Handlebars from "handlebars";
-import { tmpl } from "./card.tmpl";
+import Block from '../../utils/Block';
+
+import { tmpl } from './card.tmpl';
 
 interface CardProps {
   title: string;
-  inputs?: string[];
-  buttons: string[];
   center?: boolean;
+  content:Block,
 }
 
-export const Card = (props: CardProps) => {
-  return Handlebars.compile(tmpl)(props);
-};
+export class CardBlock extends Block {
+  constructor(props: CardProps) {
+    super({ propsWithChildren: props, tagName: 'div' });
+  }
+
+  render(): DocumentFragment {
+    return this.compile(tmpl, { ...this.props, showButtonsBlock: true });
+  }
+}

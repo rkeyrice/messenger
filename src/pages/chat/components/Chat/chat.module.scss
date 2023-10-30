@@ -1,8 +1,9 @@
-.chats_item {
+.chats-item {
   border-top: 1px solid #eaeaea;
   padding: 12px 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+
   .img {
     width: 47px;
     height: 47px;
@@ -10,10 +11,12 @@
     background-color: #efefef;
   }
 }
-.text_content {
+
+.text-content {
   max-width: 400px;
   width: 100%;
   margin-left: 15px;
+
   p {
     white-space: nowrap;
     overflow: hidden;
@@ -27,7 +30,7 @@
   font-weight: 500;
 }
 
-.unreadMessages {
+.unread-messages {
   margin-top: 22px;
   border-radius: 50%;
   color: white;

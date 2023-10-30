@@ -1,38 +1,63 @@
+import { validate } from '../utils/validators';
+
 export const profileFields = [
   {
-    label: "Почта",
-    value: "pochta@yandex.ru",
+    label: 'Почта',
     isDisabled: true,
-    name: "email",
+    name: 'email',
+    type: 'email',
+    errorMessage: 'Неверный формат почты',
+    events: {
+      blur: validate,
+    },
   },
   {
-    label: "Логин",
-    value: "ivanivanov",
+    label: 'Логин',
     isDisabled: true,
-    name: "login",
+    name: 'login',
+    type: 'text',
+    errorMessage: 'Неверный формат логина',
+    events: {
+      blur: validate,
+    },
   },
   {
-    label: "Имя",
-    value: "Rick",
+    label: 'Имя',
     isDisabled: true,
-    name: "first_name",
+    name: 'first_name',
+    type: 'text',
+    errorMessage: 'Неверный формат имени',
+    events: {
+      blur: validate,
+    },
   },
   {
-    label: "Фамилия",
-    value: "Sanchez",
+    label: 'Фамилия',
     isDisabled: true,
-    name: "last_name",
+    name: 'second_name',
+    type: 'text',
+    errorMessage: 'Неверный формат фамилии',
+    events: {
+      blur: validate,
+    },
   },
   {
-    label: "Имя в чате",
-    value: "Rick",
+    label: 'Имя в чате',
     isDisabled: true,
-    name: "chat_name",
+    name: 'display_name',
+    type: 'text',
+    events: {
+      blur: validate,
+    },
   },
   {
-    label: "Телефон",
-    value: "+79099673030",
+    label: 'Телефон',
     isDisabled: true,
-    name: "phone",
+    name: 'phone',
+    type: 'phone',
+    errorMessage: 'Неверный формат телефона',
+    events: {
+      blur: validate,
+    },
   },
 ];
