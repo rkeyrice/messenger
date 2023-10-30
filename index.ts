@@ -18,7 +18,9 @@ const ROUTES: Record<string, (root: Element) => void> = {
   '/chat': Chat,
 };
 
+
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('lol');
   const root = document.querySelector('#app')!;
   const route = window.location.pathname;
   const isRealRoute = route in ROUTES;
