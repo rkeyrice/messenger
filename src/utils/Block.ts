@@ -67,6 +67,7 @@ class Block<P extends Record<string, any> = any> {
 
   _addEvents():void {
     const { events = {} } = this.props as P & { events: Record<string, () => void> };
+    console.log(events)
 
     Object.keys(events).forEach((eventName) => {
       const inputEvents = ['focus', 'blur', 'change'];
@@ -169,7 +170,13 @@ class Block<P extends Record<string, any> = any> {
     this._addEvents();
   }
 
-  protected compile(template: string, context: any): DocumentFragment {
+   mounted(lol: Element):void {
+
+  }
+
+
+
+  protected compile(template: string, context: any, callback?:()=>void): DocumentFragment {
     const contextAndStubs = { ...context };
 
     Object.entries(this.children).forEach(([name, component]) => {

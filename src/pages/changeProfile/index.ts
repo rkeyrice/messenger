@@ -3,6 +3,8 @@ import { CardBlock } from '../../components/Card';
 import { FormBlock } from '../../components/Form';
 import { goBackFromProfile } from '../../utils/helpers';
 import { profileFields } from '../../static/data';
+import Block from '../../utils/Block';
+import { Routes } from '../../utils/types';
 
 const unDisabledFileds = profileFields.map((e) => ({
   ...e,
@@ -16,20 +18,18 @@ const saveDataButton = [
   },
 ];
 
-export const ChangeProfile = (root:Element):void => {
-  const popup = new CardBlock(
-    { title: 'Загрузите файл', content: new FormBlock({ buttons: [{ text: 'Поменять', type: 'button' }], profileStyle: true, dnd: { name: 'avatar' } }) },
-  );
-  const component = new PersonCardBlock({
-    inputs: unDisabledFileds,
-    changeAvatar: true,
-    popup,
-    buttons: saveDataButton,
-  });
-
-  root.append(component.element!);
-
-  component.dispatchComponentDidMount();
+export class ChangeProfile extends Block {
+  init() {
+    this.children.content = new PersonCardBlock({
+      inputs: unDisabledFileds,
+      changeAvatar: true,
+      popup: new CardBlock(
+        { title: 'Загрузите файл', content: new FormBlock({ buttons: [{ text: 'Поменять', type: 'button' }], profileStyle: true, dnd: { name: 'avatar' } }) },
+      ),
+      buttons: saveDataButton,
+    });
+  }
+  mounted() {
   const changeAvatar = document.getElementById('avatar');
   const popupTarget = document.getElementById('popup');
 
@@ -44,5 +44,12 @@ export const ChangeProfile = (root:Element):void => {
       popupTarget.style.display = 'none';
     }
   });
-  goBackFromProfile('/profile');
-};
+  goBackFromProfile(Routes.Profile);
+  }
+
+  render() {
+    return this.compile(`
+      {{{content}}}
+    `, {});
+  }
+}

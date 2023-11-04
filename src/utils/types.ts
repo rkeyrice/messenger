@@ -29,4 +29,16 @@ export interface MessageInputBlockProps {
     error:boolean
 }
 
+export enum Routes {
+    Index = '/',
+    Register = '/signup',
+    Profile = '/profile',
+    Chat = '/chat',
+    ChangeProfile = '/change-profile',
+    ChangePassword = '/change-password',
+    Error500 = '/500',
+    Error404 = '/404'
+}
+
+
 export interface DndProps { DownloadButton?: string; name: string }

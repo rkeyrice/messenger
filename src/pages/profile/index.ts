@@ -1,7 +1,10 @@
 import { PersonCardBlock } from '../../components/PersonCard';
-import { goTo, goBackFromProfile } from '../../utils/helpers';
+import { goBackFromProfile } from '../../utils/helpers';
 
 import { profileFields } from '../../static/data';
+import Block from '../../utils/Block';
+import router from '../../utils/router';
+import { Routes } from '../../utils/types';
 
 const buttons = [
   {
@@ -9,14 +12,14 @@ const buttons = [
     type: 'button',
     likeLink: true,
     id: 'change_data',
-    events: { click: ():void => { goTo('/change-profile'); } },
+    events: { click: ():void => { router.go('/change-profile'); } },
   },
   {
     text: 'Изменить пароль',
     type: 'button',
     likeLink: true,
     id: 'change_password',
-    events: { click: ():void => { goTo('/change-password'); } },
+    events: { click: ():void => {  router.go('/change-password'); } },
   },
   {
     text: 'Выйти',
@@ -24,18 +27,24 @@ const buttons = [
     likeLink: true,
     redLink: true,
     id: 'log_out',
-    events: { click: ():void => { goTo('/login'); } },
+    events: { click: ():void => {  router.go('/'); } },
   },
 ];
 
-export const Profile = (root:Element):void => {
-  const component = new PersonCardBlock({
-    inputs: profileFields,
-    buttons,
-  });
+export class Profile extends Block {
+  init() {
+    this.children.content =new PersonCardBlock({
+      inputs: profileFields,
+      buttons,
+    });
+  }
+  mounted() {
+    goBackFromProfile(Routes.Chat)
+  }
 
-  root.append(component.element!);
-
-  component.dispatchComponentDidMount();
-  goBackFromProfile('/chat');
-};
+  render() {
+    return this.compile(`
+      {{{content}}}
+    `, {});
+  }
+}

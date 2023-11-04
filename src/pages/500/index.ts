@@ -1,9 +1,14 @@
 import { ErrorBlock } from '../../components/Error';
+import Block from '../../utils/Block';
 
-export const Error500 = (root:Element):void => {
-  const component = new ErrorBlock({ number: 500, text: 'Мы уже фиксим' });
+export class Error500 extends Block {
+  init() {
+    this.children.content = new ErrorBlock({ number: 500, text: 'Мы уже фиксим' });
+  }
+  render() {
+    return this.compile(`
+      {{{content}}}
+    `, {});
+  }
+}
 
-  root.append(component.element!);
-
-  component.dispatchComponentDidMount();
-};

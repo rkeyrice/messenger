@@ -4,11 +4,12 @@ import { tmpl } from './chat.tmpl';
 import Block from '../../utils/Block';
 import { ChatListBlock } from './components/ChatList';
 import { MessageInputBlock } from './components/MessageInput';
-import { formSubmit, goTo } from '../../utils/helpers';
+import { formSubmit } from '../../utils/helpers';
+import router from '../../utils/router';
 
-export class ChatBlock extends Block {
+export class Chat extends Block {
   constructor() {
-    super({ propsWithChildren: {}, tagName: 'div' });
+    super({propsWithChildren:{}, tagName:'div'});
   }
 
   get sendMessageBlock():Block {
@@ -22,24 +23,31 @@ export class ChatBlock extends Block {
     this.children.messageInput = this.sendMessageBlock;
   }
 
+   mounted(lol:Element) {
+     const dialog =  lol.querySelector('#dialog')
+     const goProfile = lol.querySelector('#go_profile');
+     dialog.scrollTop = dialog.scrollHeight;
+     goProfile?.addEventListener('click', ():void => { router.go('/profile'); });
+  }
+
   render(): DocumentFragment {
     return this.compile(tmpl, this.props);
   }
 }
 
-export const Chat = (root:Element):void => {
-  const component:Block = new ChatBlock();
-
-  root.append(component.element!);
-
-  component.dispatchComponentDidMount();
-
-  const dialog = document.getElementById('dialog');
-  const goProfile = document.getElementById('go_profile');
-
-  if (dialog) {
-    dialog.scrollTop = dialog.scrollHeight;
-  }
-
-  goProfile?.addEventListener('click', ():void => { goTo('/profile'); });
-};
+// export const Chat = (root:Element):void => {
+//   const component:Block = new ChatBlock();
+//
+//   root.append(component.element!);
+//
+//   component.dispatchComponentDidMount();
+//
+//   const dialog = document.getElementById('dialog');
+//   const goProfile = document.getElementById('go_profile');
+//
+//   if (dialog) {
+//     dialog.scrollTop = dialog.scrollHeight;
+//   }
+//
+//   goProfile?.addEventListener('click', ():void => { goTo('/profile'); });
+// };

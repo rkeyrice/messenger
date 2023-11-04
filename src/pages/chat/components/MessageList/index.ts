@@ -124,7 +124,18 @@ export class MessageListBlock extends Block {
     this.children.messages = this.messages;
   }
 
+  protected mounted(lol:HTMLElement) {
+    const dialog = lol.querySelector('#dialog')
+    if (dialog) {
+      dialog.scrollTop = 1000
+    }
+    console.log(document.querySelector('#dialog'))
+
+  }
+
   render(): DocumentFragment {
+    const dialog = document.getElementById('dialog');
+    console.log('dialog', dialog);
     return this.compile(tmpl, this.props);
   }
 }

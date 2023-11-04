@@ -1,6 +1,8 @@
 import { PersonCardBlock } from '../../components/PersonCard';
 import { goBackFromProfile } from '../../utils/helpers';
 import { validate } from '../../utils/validators';
+import Block from '../../utils/Block';
+import { Routes } from '../../utils/types';
 
 const changePasswordFields = [
   {
@@ -39,14 +41,23 @@ const buttons = [
   },
 ];
 
-export const ChangePassword = (root:Element):void => {
-  const component = new PersonCardBlock({
-    inputs: changePasswordFields,
-    buttons,
-  });
 
-  root.append(component.element!);
 
-  component.dispatchComponentDidMount();
-  goBackFromProfile('/profile');
-};
+export class ChangePassword extends Block {
+  init() {
+    this.children.content = new  PersonCardBlock({
+      inputs: changePasswordFields,
+      buttons,
+    });;
+  }
+  mounted() {
+    goBackFromProfile(Routes.Profile);
+  }
+
+  render() {
+    return this.compile(`
+      {{{content}}}
+    `, {});
+  }
+}
+

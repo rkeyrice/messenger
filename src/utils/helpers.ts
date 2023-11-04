@@ -1,8 +1,5 @@
 import Block from './Block';
-
-export const goTo = (to: string): void => {
-  window.location.href = `${window.location.origin}${to}`;
-};
+import router from './router';
 
 export const formSubmit = (e: Event, fields: Block[] | Block): void => {
   e.preventDefault();
@@ -30,5 +27,5 @@ export const formSubmit = (e: Event, fields: Block[] | Block): void => {
 
 export const goBackFromProfile = (to:string):void => {
   const goProfile = document.getElementById('go_back');
-  goProfile?.addEventListener('click', ():void => { goTo(to); });
+  goProfile?.addEventListener('click', ():void => { router.go(to) });
 };

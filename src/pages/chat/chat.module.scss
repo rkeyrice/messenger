@@ -3,7 +3,7 @@ $border: 1px solid #eaeaea;
 .chat-wrapper {
   display: grid;
   grid-template-columns: 1fr 4fr;
-  height: 100vh;
+  //height: 100vh;
 }
 
 .list-wrapper {
@@ -82,7 +82,7 @@ $border: 1px solid #eaeaea;
 }
 
 .dialog {
-  max-height: 90vh;
+  max-height: calc(100vh - 74px - 65px);;
   height: 100%;
   overflow: hidden;
   overflow-y: scroll;

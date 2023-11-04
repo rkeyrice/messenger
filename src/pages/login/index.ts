@@ -1,8 +1,10 @@
 import { CardBlock } from '../../components/Card';
 import { FormBlock } from '../../components/Form';
-import { formSubmit, goTo } from '../../utils/helpers';
+import { formSubmit } from '../../utils/helpers';
 import { validate } from '../../utils/validators';
 import Block from '../../utils/Block';
+import router from '../../utils/router';
+import { Routes } from '../../utils/types';
 
 const inputs = [
   {
@@ -39,12 +41,13 @@ const buttons = [
     likeLink: true,
     id: 'registration',
     events: {
-      click: ():void => goTo('/registration'),
+      click: ():void => {
+        router.go(Routes.Register);
+      },
     },
   },
 ];
 
-export const Login = (root:Element):void => {
   const content:Block = new FormBlock(
     {
       inputs,
@@ -53,9 +56,13 @@ export const Login = (root:Element):void => {
     },
   );
 
-  const component:Block = new CardBlock({ title: 'Вход', content, center: true });
-
-  root.append(component.element!);
-
-  component.dispatchComponentDidMount();
-};
+export class Login extends Block {
+  init() {
+    this.children.content = new CardBlock({ title: 'Вход', content, center: true });
+  }
+  render() {
+    return this.compile(`
+      {{{content}}}
+    `, {});
+  }
+}
