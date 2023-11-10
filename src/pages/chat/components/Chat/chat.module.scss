@@ -1,14 +1,25 @@
+$active: #f4f7ff;
+
+.active {
+  background: $active;
+}
+
 .chats-item {
   border-top: 1px solid #eaeaea;
   padding: 12px 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  cursor: pointer;
+  transition: .3s linear;
 
   .img {
     width: 47px;
     height: 47px;
     border-radius: 50%;
     background-color: #efefef;
+  }
+
+  &:hover {
+    background: $active;
   }
 }
 

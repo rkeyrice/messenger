@@ -7,23 +7,10 @@ import { ChangeProfile } from './src/pages/changeProfile';
 import { Profile } from './src/pages/profile';
 import { Chat } from './src/pages/chat';
 import router from './src/utils/router';
-import Block from './src/utils/Block';
 import { Routes } from './src/utils/types';
-import { Chat } from './src/pages/chat';
+import AuthController from './src/controllers/AuthController';
 
-// const ROUTES: Record<string, (root: Element) => void> = {
-//   '/500': Error500,
-//   '/404': Error404,
-//   '/login': Login,
-//   '/registration': Registration,
-//   '/change-password': ChangePassword,
-//   '/change-profile': ChangeProfile,
-//   '/profile': Profile,
-//   '/chat': Chat,
-// };
-
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   router
     .use(Routes.Index, Login)
     .use(Routes.Register, Registration)
@@ -32,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .use(Routes.ChangeProfile, ChangeProfile)
     .use(Routes.ChangePassword, ChangePassword)
     .use(Routes.Error500, Error500)
-    .use(Routes.Error404, Error404)
+    .use(Routes.Error404, Error404);
 
   let isProtectedRoute = true;
 
@@ -41,27 +28,20 @@ document.addEventListener('DOMContentLoaded', () => {
     case Routes.Register:
       isProtectedRoute = false;
       break;
+    default:
   }
 
   try {
+    await AuthController.fetchUser();
     router.start();
     if (!isProtectedRoute) {
-      router.go(Routes.Index);
+      router.go(Routes.Profile);
     }
   } catch (e) {
-    console.log(e, 'Here')
     router.start();
 
     if (isProtectedRoute) {
-
       router.go(Routes.Index);
     }
   }
-  // console.log('lol');
-  // const root = document.querySelector('#app')!;
-  // const route = window.location.pathname;
-  // const isRealRoute = route in ROUTES;
-  // if (root) {
-  //   isRealRoute ? ROUTES[route](root) : ROUTES['/404'](root);
-  // }
 });

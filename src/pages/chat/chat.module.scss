@@ -3,13 +3,21 @@ $border: 1px solid #eaeaea;
 .chat-wrapper {
   display: grid;
   grid-template-columns: 1fr 4fr;
-  //height: 100vh;
 }
+
+.add-chat-button {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 
 .list-wrapper {
   border-right: 2px solid #eaeaea;
   padding: 20px 10px 0;
   max-width: 600px;
+  position: relative;
 }
 
 .chat-list-header {
@@ -82,10 +90,28 @@ $border: 1px solid #eaeaea;
 }
 
 .dialog {
-  max-height: calc(100vh - 74px - 65px);;
+  max-height: calc(100vh - 74px - 65px);
+  ;
   height: 100%;
   overflow: hidden;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-snap-align: end;
+}
+
+.popup-wrapper {
+  z-index: 1000;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: #0000000a;
+  align-items: center;
+  display: none;
+
+  input,
+  button {
+    margin: 24px 0;
+  }
 }

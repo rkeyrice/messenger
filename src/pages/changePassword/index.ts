@@ -1,8 +1,9 @@
 import { PersonCardBlock } from '../../components/PersonCard';
-import { goBackFromProfile } from '../../utils/helpers';
+import { formSubmitValues, goBackFromProfile } from '../../utils/helpers';
 import { validate } from '../../utils/validators';
 import Block from '../../utils/Block';
-import { Routes } from '../../utils/types';
+import { PasswordTypes, Routes } from '../../utils/types';
+import UserController from '../../controllers/ProfileController';
 
 const changePasswordFields = [
   {
@@ -41,23 +42,30 @@ const buttons = [
   },
 ];
 
-
-
 export class ChangePassword extends Block {
-  init() {
-    this.children.content = new  PersonCardBlock({
+  init(): void {
+    this.children.content = new PersonCardBlock({
       inputs: changePasswordFields,
       buttons,
-    });;
+      event: this.updatePassword,
+    });
   }
-  mounted() {
+
+  async updatePassword(e: Event, inputs: Block[]): Promise<void> {
+    const data = formSubmitValues(e, inputs);
+    const { repeatNewPassword: _, ...ostData } = data as PasswordTypes;
+    if (data) {
+      await UserController.updatePassword(ostData);
+    }
+  }
+
+  mounted(): void {
     goBackFromProfile(Routes.Profile);
   }
 
-  render() {
+  render(): DocumentFragment {
     return this.compile(`
       {{{content}}}
     `, {});
   }
 }
-

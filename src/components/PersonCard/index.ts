@@ -1,15 +1,16 @@
 import Block from '../../utils/Block';
 import { tmpl } from './personCard.tmpl';
-import { formSubmit } from '../../utils/helpers';
 import { ButtonProps, InputProps } from '../../utils/types';
 import { ArrowButtonBlock } from '../ArrowButton';
 import { FormBlock } from '../Form';
 
 interface PersonCardProps {
   buttons?: ButtonProps[];
-  inputs:InputProps[]
+  inputs: InputProps[]
   changeAvatar?: boolean;
   popup?: Block;
+  avatar?: string
+  event?: (e: Event, inputs: Block[]) => void
 }
 
 export class PersonCardBlock extends Block {
@@ -22,9 +23,9 @@ export class PersonCardBlock extends Block {
     this.children.content = this.content;
   }
 
-  get content():Block {
+  get content(): Block {
     const content = new FormBlock({
-      inputs: this.props.inputs, profileStyle: true, buttons: this.props.buttons, events: { submit: (e:Event):void => { formSubmit(e, content.children.inputs); } },
+      inputs: this.props.inputs, profileStyle: true, buttons: this.props.buttons, events: { submit: (e: Event): void => { this.props.event(e, content.children.inputs as Block[]); } },
     });
     return content;
   }

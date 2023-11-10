@@ -2,6 +2,7 @@ import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
 
 import { EventBus } from './EventBus';
+import { cloneDeep, isEqual } from './helpers';
 
 // Нельзя создавать экземпляр данного класса
 class Block<P extends Record<string, any> = any> {
@@ -30,7 +31,7 @@ class Block<P extends Record<string, any> = any> {
    *
    * @returns {void}
    */
-  constructor({ propsWithChildren, tagName }:{propsWithChildren: P, tagName?:string}) {
+  constructor({ propsWithChildren, tagName }: { propsWithChildren: P, tagName?: string }) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
@@ -43,14 +44,14 @@ class Block<P extends Record<string, any> = any> {
     this.children = children;
     this.props = this._makePropsProxy(props);
 
-    this.eventBus = ():EventBus<Record<string, string>, Record<string, any[]>> => eventBus;
+    this.eventBus = (): EventBus<Record<string, string>, Record<string, any[]>> => eventBus;
 
     this._registerEvents(eventBus);
 
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _getChildrenAndProps(childrenAndProps: P): { props: P, children: Record<string, Block>} {
+  _getChildrenAndProps(childrenAndProps: P): { props: P, children: Record<string, Block> } {
     const props: Record<string, unknown> = {};
     const children: Record<string, Block> = {};
 
@@ -65,10 +66,8 @@ class Block<P extends Record<string, any> = any> {
     return { props: props as P, children };
   }
 
-  _addEvents():void {
+  _addEvents(): void {
     const { events = {} } = this.props as P & { events: Record<string, () => void> };
-    console.log(events)
-
     Object.keys(events).forEach((eventName) => {
       const inputEvents = ['focus', 'blur', 'change'];
       const el = !inputEvents.includes(eventName) ? this._element : this._findInputInParent(this.element);
@@ -76,7 +75,7 @@ class Block<P extends Record<string, any> = any> {
     });
   }
 
-  _removeEvents():void {
+  _removeEvents(): void {
     const { events = {} } = this.props as P & { events: Record<string, () => void> };
 
     Object.keys(events).forEach((eventName) => {
@@ -88,25 +87,25 @@ class Block<P extends Record<string, any> = any> {
 
   _findInputInParent(
     parent:
-    HTMLElement | null | DocumentFragment,
-  ):HTMLInputElement | HTMLTextAreaElement| null
+      HTMLElement | null | DocumentFragment,
+  ): HTMLInputElement | HTMLTextAreaElement | null
     | undefined {
     return parent?.querySelector('input') || parent?.querySelector('textarea');
   }
 
-  _registerEvents(eventBus: EventBus):void {
+  _registerEvents(eventBus: EventBus): void {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  _createResources():void {
+  _createResources(): void {
     const { tagName } = this._meta;
     this._element = tagName ? document.createElement(tagName) : document.createDocumentFragment();
   }
 
-  private _init():void {
+  private _init(): void {
     this._createResources();
 
     this.init();
@@ -114,15 +113,15 @@ class Block<P extends Record<string, any> = any> {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  protected init():void {}
+  protected init(): void { }
 
-  _componentDidMount():void {
+  _componentDidMount(): void {
     this.componentDidMount();
   }
 
-  protected componentDidMount():void {}
+  protected componentDidMount(): void { }
 
-  public dispatchComponentDidMount():void {
+  public dispatchComponentDidMount(): void {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
     Object.values(this.children).forEach((child) => {
@@ -136,7 +135,7 @@ class Block<P extends Record<string, any> = any> {
     });
   }
 
-  private _componentDidUpdate(oldProps: P, newProps: P):void {
+  private _componentDidUpdate(oldProps: P, newProps: P): void {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
@@ -144,23 +143,24 @@ class Block<P extends Record<string, any> = any> {
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  protected componentDidUpdate(oldProps: P, newProps: P):boolean {
-    return true;
+  protected componentDidUpdate(oldProps: P, newProps: P): boolean {
+    return !isEqual(oldProps, newProps);
   }
 
-  setProps = (nextProps: P):void => {
+  setProps = (nextProps: P): void => {
     if (!nextProps) {
       return;
     }
+    // console.log('cloneDeep', cloneDeep(this.props));
 
     Object.assign(this.props, nextProps);
   };
 
-  get element():HTMLElement | null | DocumentFragment {
+  get element(): HTMLElement | null | DocumentFragment {
     return this._element;
   }
 
-  private _render():void {
+  private _render(): void {
     const fragment = this.render();
     this._removeEvents();
     (this._element as HTMLElement).innerHTML = '';
@@ -170,13 +170,11 @@ class Block<P extends Record<string, any> = any> {
     this._addEvents();
   }
 
-   mounted(lol: Element):void {
+  mounted(lol?: Element): void {
 
   }
 
-
-
-  protected compile(template: string, context: any, callback?:()=>void): DocumentFragment {
+  protected compile(template: string, context: any): DocumentFragment {
     const contextAndStubs = { ...context };
 
     Object.entries(this.children).forEach(([name, component]) => {
@@ -184,7 +182,6 @@ class Block<P extends Record<string, any> = any> {
     });
 
     const html = Handlebars.compile(template)(contextAndStubs);
-
     const temp = document.createElement('template');
 
     temp.innerHTML = html;
@@ -222,37 +219,40 @@ class Block<P extends Record<string, any> = any> {
     return this.element;
   }
 
-  _makePropsProxy(props: P):P {
+  _makePropsProxy(props: P): P {
     const self = this;
 
     return new Proxy(props, {
-      get(target, prop: string):string {
+      get(target, prop: string): string {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target, prop: string, value):boolean {
-        const oldTarget = { ...target };
-        const newTarget = target;
-        newTarget[prop as keyof P] = value;
+      set(target, prop: string, value): boolean {
+        const cloneOldTarget = cloneDeep(target);
 
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, newTarget);
+        const newTarget = target;
+
+        newTarget[prop as keyof P] = value;
+        console.log(cloneOldTarget, newTarget);
+
+        self.eventBus().emit(Block.EVENTS.FLOW_CDU, newTarget, cloneOldTarget);
         return true;
       },
-      deleteProperty():boolean {
+      deleteProperty(): boolean {
         throw new Error('Нет доступа');
       },
     });
   }
 
-  _createDocumentElement(tagName: string):HTMLElement | DocumentFragment {
+  _createDocumentElement(tagName: string): HTMLElement | DocumentFragment {
     return tagName ? document.createElement(tagName) : document.createDocumentFragment();
   }
 
-  show():void {
+  show(): void {
     (this.getContent() as HTMLElement)!.style.display = 'block';
   }
 
-  hide():void {
+  hide(): void {
     (this.getContent() as HTMLElement)!.style.display = 'none';
   }
 }

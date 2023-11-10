@@ -7,13 +7,13 @@ import { InputProps, ButtonProps, DndProps } from '../../utils/types';
 import { DndBlock } from '../Dnd';
 
 interface FormProps {
-  inputs?:InputProps[];
+  inputs?: InputProps[];
   buttons?: ButtonProps[];
   events?: {
     submit: (e: any) => void
   },
-  profileStyle?:boolean,
-  dnd?:DndProps
+  profileStyle?: boolean,
+  dnd?: DndProps
 }
 
 export class FormBlock extends Block {
@@ -36,11 +36,11 @@ export class FormBlock extends Block {
   get inputs(): Block[] {
     return this.props.inputs?.map((e: InputProps) => {
       const { events, ...ostProps } = e;
-      const input = this.props.profileStyle ? new PersonInputBlock(ostProps) : new InputBlock(ostProps);
+      const input = this.props.profileStyle ? new PersonInputBlock({ [e.name]: e.value, ...ostProps }) : new InputBlock(ostProps);
       if (events) {
-        const eventCollection:Record<string, (e:FocusEvent)=>void> = {};
+        const eventCollection: Record<string, (e: FocusEvent) => void> = {};
         Object.entries(events).forEach(([eventName, fn]) => {
-          eventCollection[eventName] = (event:FocusEvent):void => (fn as (input: Block, event:FocusEvent)=>void)(input, event);
+          eventCollection[eventName] = (event: FocusEvent): void => (fn as (input: Block, event: FocusEvent) => void)(input, event);
         });
         input.setProps({ events: eventCollection });
       }

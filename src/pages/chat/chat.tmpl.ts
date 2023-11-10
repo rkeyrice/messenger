@@ -20,12 +20,17 @@ export const tmpl = `
   </div>
   <div  class=${css.chats}>
         {{{chatList}}}
+        <span class=${css['add-chat-button']}>{{{AddChatButton}}}</span>
   </div>
 </div>
 <div  class=${css['dialog-wrapper']}>
   <div class=${css['dialog-header']}>
         <div>
-          <span class=${css['dialog-avatar']}></span>
+          <span class=${css['dialog-avatar']}>
+          {{#if avatar}}
+          <img width="34" height="34" src="https://ya-praktikum.tech/api/v2/resources/{{avatar}}">
+        </svg>
+          {{/if}} </span>
           <span class=${css['dialog-name']}>Rick</span>
         </div>
     <button>
@@ -42,6 +47,9 @@ export const tmpl = `
     {{{messageInput}}}
   </div>
 </div>
+</div>
+<div id="popup" class=${css['popup-wrapper']}>
+{{{popup}}}
 </div>
 <div></main>
 `;
