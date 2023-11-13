@@ -1,6 +1,10 @@
 import { PersonCardBlock } from '../../components/PersonCard';
-import { goBackFromProfile } from '../../utils/helpers';
+import { formSubmitValues, goBackFromProfile } from '../../utils/helpers';
 import { validate } from '../../utils/validators';
+import Block from '../../utils/Block';
+import { PasswordTypes, Routes } from '../../utils/types';
+import UserController from '../../controllers/UserController';
+import { State, withStore } from '../../utils/store';
 
 const changePasswordFields = [
   {
@@ -39,14 +43,37 @@ const buttons = [
   },
 ];
 
-export const ChangePassword = (root:Element):void => {
-  const component = new PersonCardBlock({
-    inputs: changePasswordFields,
-    buttons,
-  });
+export class BaseChangePassword extends Block {
+  init(): void {
+    this.children.content = new PersonCardBlock({
+      avatar: this.props.avatar,
+      inputs: changePasswordFields,
+      buttons,
+      event: this.updatePassword,
+    });
+  }
 
-  root.append(component.element!);
+  async updatePassword(e: Event, inputs: Block[]): Promise<void> {
+    const data = formSubmitValues(e, inputs);
+    const { repeatNewPassword: _, ...ostData } = data as PasswordTypes;
+    if (data) {
+      await UserController.updatePassword(ostData);
+    }
+  }
 
-  component.dispatchComponentDidMount();
-  goBackFromProfile('/profile');
-};
+  mounted(): void {
+    goBackFromProfile(Routes.Profile);
+  }
+
+  render(): DocumentFragment {
+    return this.compile(`
+      {{{content}}}
+    `, {});
+  }
+}
+
+function mapStateToProps(state: State): unknown {
+  return { avatar: state.user?.avatar };
+}
+
+export const ChangePassword = withStore(mapStateToProps)(BaseChangePassword);

@@ -1,7 +1,12 @@
 import { PersonCardBlock } from '../../components/PersonCard';
-import { goTo, goBackFromProfile } from '../../utils/helpers';
+import { goBackFromProfile } from '../../utils/helpers';
 
 import { profileFields } from '../../static/data';
+import Block from '../../utils/Block';
+import router from '../../utils/router';
+import { InputProps, Routes } from '../../utils/types';
+import { withStore, State } from '../../utils/store';
+import AuthController from '../../controllers/AuthController';
 
 const buttons = [
   {
@@ -9,14 +14,14 @@ const buttons = [
     type: 'button',
     likeLink: true,
     id: 'change_data',
-    events: { click: ():void => { goTo('/change-profile'); } },
+    events: { click: (): void => { router.go(Routes.ChangeProfile); } },
   },
   {
     text: 'Изменить пароль',
     type: 'button',
     likeLink: true,
     id: 'change_password',
-    events: { click: ():void => { goTo('/change-password'); } },
+    events: { click: (): void => { router.go(Routes.ChangePassword); } },
   },
   {
     text: 'Выйти',
@@ -24,18 +29,41 @@ const buttons = [
     likeLink: true,
     redLink: true,
     id: 'log_out',
-    events: { click: ():void => { goTo('/login'); } },
+    events: { click: (): void => { AuthController.logout(); } },
   },
 ];
 
-export const Profile = (root:Element):void => {
-  const component = new PersonCardBlock({
-    inputs: profileFields,
-    buttons,
-  });
+export class BaseProfile extends Block {
+  init(): void {
+    this.children.content = new PersonCardBlock({
+      avatar: this.props.avatar,
+      inputs: this.inputs,
+      buttons,
+    });
+  }
 
-  root.append(component.element!);
+  get inputs(): InputProps[] {
+    return profileFields.map((e): InputProps => {
+      if (this.props[e.name]) {
+        return { value: this.props[e.name], ...e };
+      }
+      return e;
+    });
+  }
 
-  component.dispatchComponentDidMount();
-  goBackFromProfile('/chat');
-};
+  mounted(): void {
+    goBackFromProfile(Routes.Chat);
+  }
+
+  render(): DocumentFragment {
+    return this.compile(`
+      {{{content}}}
+    `, {});
+  }
+}
+
+function mapStateToProps(state: State): unknown {
+  return { ...state.user };
+}
+
+export const Profile = withStore(mapStateToProps)(BaseProfile);

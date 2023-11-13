@@ -28,11 +28,7 @@ export class EventBus<
   }
 
   emit<Event extends MapInterface<E>>(event: Event, ...args: Args[Event]):void {
-    if (!this.listeners[event]) {
-      throw new Event(`Нет события: ${event}`);
-    }
-
-    this.listeners[event]!.forEach((listener) => {
+    this.listeners[event]?.forEach((listener) => {
       listener(...args);
     });
   }

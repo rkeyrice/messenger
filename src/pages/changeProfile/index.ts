@@ -1,8 +1,12 @@
 import { PersonCardBlock } from '../../components/PersonCard';
 import { CardBlock } from '../../components/Card';
 import { FormBlock } from '../../components/Form';
-import { goBackFromProfile } from '../../utils/helpers';
+import { formSubmitValues, goBackFromProfile } from '../../utils/helpers';
 import { profileFields } from '../../static/data';
+import Block from '../../utils/Block';
+import { InputProps, Routes } from '../../utils/types';
+import { withStore, State } from '../../utils/store';
+import UserController from '../../controllers/UserController';
 
 const unDisabledFileds = profileFields.map((e) => ({
   ...e,
@@ -16,33 +20,75 @@ const saveDataButton = [
   },
 ];
 
-export const ChangeProfile = (root:Element):void => {
-  const popup = new CardBlock(
-    { title: 'Загрузите файл', content: new FormBlock({ buttons: [{ text: 'Поменять', type: 'button' }], profileStyle: true, dnd: { name: 'avatar' } }) },
-  );
-  const component = new PersonCardBlock({
-    inputs: unDisabledFileds,
-    changeAvatar: true,
-    popup,
-    buttons: saveDataButton,
-  });
+export class BaseChangeProfile extends Block {
+  init(): void {
+    this.children.content = new PersonCardBlock({
+      avatar: this.props.avatar,
+      inputs: unDisabledFileds,
+      changeAvatar: true,
+      event: this.updateProfile,
+      popup: new CardBlock(
+        {
+          title: 'Загрузите файл',
+          content: new FormBlock({
+            buttons: [{ text: 'Поменять', type: 'submit' }], events: { submit: (e: Event): void => { this.changeAvatar(e); } }, profileStyle: true, dnd: { name: 'avatar' },
+          }),
+        },
+      ),
+      buttons: saveDataButton,
+    });
+  }
 
-  root.append(component.element!);
+  async changeAvatar(e: Event): Promise<void> {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    await UserController.updateAvatar(formData);
+  }
 
-  component.dispatchComponentDidMount();
-  const changeAvatar = document.getElementById('avatar');
-  const popupTarget = document.getElementById('popup');
-
-  changeAvatar?.addEventListener('click', () => {
-    if (popupTarget) {
-      popupTarget.style.display = 'flex';
+  async updateProfile(e: Event, inputs: Block[]): Promise<void> {
+    const data = formSubmitValues(e, inputs);
+    if (data) {
+      await UserController.updateProfile(data as Record<string, string>);
     }
-  });
+  }
 
-  popupTarget?.addEventListener('click', (e) => {
-    if (e.target === popupTarget) {
-      popupTarget.style.display = 'none';
-    }
-  });
-  goBackFromProfile('/profile');
-};
+  get inputs(): InputProps[] {
+    return unDisabledFileds.map((e): InputProps => {
+      if (this.props[e.name]) {
+        return { value: this.props[e.name], ...e };
+      }
+      return e;
+    });
+  }
+
+  mounted(): void {
+    const changeAvatar = document.getElementById('avatar');
+    const popupTarget = document.getElementById('popup');
+
+    changeAvatar?.addEventListener('click', () => {
+      if (popupTarget) {
+        popupTarget.style.display = 'flex';
+      }
+    });
+
+    popupTarget?.addEventListener('click', (e) => {
+      if (e.target === popupTarget) {
+        popupTarget.style.display = 'none';
+      }
+    });
+    goBackFromProfile(Routes.Profile);
+  }
+
+  render(): DocumentFragment {
+    return this.compile(`
+      {{{content}}}
+    `, { ...this.props });
+  }
+}
+
+function mapStateToProps(state: State): unknown {
+  return { ...state.user };
+}
+
+export const ChangeProfile = withStore(mapStateToProps)(BaseChangeProfile);

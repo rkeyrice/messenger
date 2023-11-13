@@ -1,9 +1,14 @@
 import { ErrorBlock } from '../../components/Error';
+import Block from '../../utils/Block';
 
-export const Error404 = (root:Element):void => {
-  const component = new ErrorBlock({ number: 404, text: 'Не туда попали' });
+export class Error404 extends Block {
+  init():void {
+    this.children.content = new ErrorBlock({ number: 404, text: 'Не туда попали' });
+  }
 
-  root.append(component.element!);
-
-  component.dispatchComponentDidMount();
-};
+  render():DocumentFragment {
+    return this.compile(`
+      {{{content}}}
+    `, {});
+  }
+}

@@ -23,5 +23,10 @@
 }
 
 .red-link {
-  color: #f00
+  color: #f00;
+
+  &:hover {
+    color: #ce0c0c;
+  }
+
 }

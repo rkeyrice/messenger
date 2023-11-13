@@ -8,6 +8,6 @@ export class PersonInputBlock extends Block {
   }
 
   render(): DocumentFragment {
-    return this.compile(tmpl, this.props);
+    return this.compile(tmpl, { value: this.props[this.props.name], ...this.props });
   }
 }

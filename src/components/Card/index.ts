@@ -5,7 +5,7 @@ import { tmpl } from './card.tmpl';
 interface CardProps {
   title: string;
   center?: boolean;
-  content:Block,
+  content: Block,
 }
 
 export class CardBlock extends Block {
