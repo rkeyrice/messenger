@@ -14,14 +14,14 @@ const buttons = [
     type: 'button',
     likeLink: true,
     id: 'change_data',
-    events: { click: (): void => { router.go('/change-profile'); } },
+    events: { click: (): void => { router.go(Routes.ChangeProfile); } },
   },
   {
     text: 'Изменить пароль',
     type: 'button',
     likeLink: true,
     id: 'change_password',
-    events: { click: (): void => { router.go('/change-password'); } },
+    events: { click: (): void => { router.go(Routes.ChangePassword); } },
   },
   {
     text: 'Выйти',

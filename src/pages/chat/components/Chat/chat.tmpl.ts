@@ -1,11 +1,11 @@
 import css from './chat.module.scss';
 
 export const tmpl = `
-<li  class=${css['chats-item']}>
+<li  class="${css['chats-item']} {{#if active}}${css.active}{{/if}}">
    <div class=${css.img}></div>
     <span class=${css['text-content']}>
         <div class=${css.name}>{{title}}</div>
-         <p>{{last_message}}</p>
+         <p>{{last_message.content }}</p>
     </span>
     <div>
         <div class=${css.time}>

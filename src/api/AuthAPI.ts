@@ -35,7 +35,7 @@ export class AuthAPI extends API {
   }
 
   signup(data: IUser): Promise<XMLHttpRequest> {
-    return this.http.post('/signup', { data });
+    return this.http.post('/signup', { data, headers: { 'Content-Type': 'application/json' } });
   }
 
   logout(): Promise<XMLHttpRequest> {
