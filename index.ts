@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await AuthController.fetchUser();
     router.start();
     if (!isProtectedRoute) {
-      router.go(Routes.Profile);
+      router.go(Routes.Chat);
     }
   } catch (e) {
     router.start();
