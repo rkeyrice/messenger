@@ -6,7 +6,7 @@ import Block from '../../utils/Block';
 import router from '../../utils/router';
 import { Routes } from '../../utils/types';
 import AuthController from '../../controllers/AuthController';
-import { ISignInData, IUser } from '../../api/AuthAPI';
+import { IUser } from '../../api/AuthAPI';
 
 const inputs = [
   {

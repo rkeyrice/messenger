@@ -10,6 +10,7 @@ $active: #f4f7ff;
   display: flex;
   cursor: pointer;
   transition: .3s linear;
+  width: 100%;
 
   .img {
     width: 47px;
@@ -21,11 +22,11 @@ $active: #f4f7ff;
   &:hover {
     background: $active;
   }
+
 }
 
 .text-content {
   max-width: 400px;
-  width: 100%;
   margin-left: 15px;
 
   p {

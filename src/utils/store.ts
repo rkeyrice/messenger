@@ -1,11 +1,13 @@
 import { Chat, IUser } from './types';
 import { EventBus } from './EventBus';
-import { isEqual, set } from './helpers';
+import { set } from './helpers';
 import Block from './Block';
 
 export interface State {
   user?: IUser;
-  chats?: Chat
+  chats?: Chat[]
+  activeChat?: number
+  messages?: Record<number, any>
 }
 
 enum StorageEvent {
@@ -20,18 +22,14 @@ class Store extends EventBus {
   }
 
   set(path: string, value: unknown): void {
-    // @ts-ignore
-    if (!isEqual(this.state[path as keyof State], value)) {
-      set(this.state, path, value);
-      this.emit(StorageEvent.UpdateState, this.state);
-    }
+    set(this.state, path, value);
+    this.emit(StorageEvent.UpdateState, this.state);
   }
 }
 
 const updateChildrens = (comp: Block | Block[], props: Record<string, string>): void | boolean => {
   const checkProps = (parent: Block): void => Object.keys(props).forEach((prop) => {
     const needUpdate: Record<string, string> = {};
-
     if (parent.props?.hasOwnProperty(prop)) {
       needUpdate[prop] = props[prop];
     }
@@ -81,7 +79,6 @@ export function withStore(mapStateToProps: (state: State) => any) {
       store.on(StorageEvent.UpdateState, () => {
         const propsFromState = mapStateToProps(store.getState());
         updateChildrens(this, propsFromState);
-        // this.setProps(propsFromState);
         this.mounted();
       });
     }

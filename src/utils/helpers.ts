@@ -69,12 +69,12 @@ export type Indexed<T = any> = {
 };
 
 function merge(lhs: Indexed, rhs: Indexed): Indexed {
-  const result = { ...lhs };
-  if (typeof rhs !== 'object' || rhs === null) {
+  const result = cloneDeep(lhs);
+  if (typeof rhs !== 'object' || rhs === null || !lhs) {
     return lhs;
   }
   Object.keys(rhs).forEach((key) => {
-    if (typeof rhs[key] === 'object' && result.hasOwnProperty(key) && typeof result[key] === 'object') {
+    if (typeof rhs[key] === 'object' && result?.hasOwnProperty(key) && typeof result[key] === 'object') {
       result[key] = merge(result[key], rhs[key]);
     } else {
       result[key] = rhs[key];
@@ -95,8 +95,8 @@ export function set(object: Indexed | unknown, path: string, value: unknown): In
   const result = path.split('.').reduceRight<Indexed>((acc, key) => ({
     [key]: acc,
   }), value as any);
-  const res = merge(object as Indexed, result);
-  return res;
+
+  return merge(object as Indexed, result);
 }
 
 type Props = Record<string, unknown>
@@ -105,7 +105,6 @@ export const isEqual = (a: Props, b: Props): boolean => {
   if (typeof a !== 'object' || typeof b !== 'object') {
     return a === b;
   }
-  // console.log(a, b);
 
   const keys1 = Object.keys(a ?? {});
   const keys2 = Object.keys(b ?? {});

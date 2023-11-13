@@ -16,4 +16,8 @@ export class UserApi extends API {
   updatePassword(data: Record<string, string>): Promise<XMLHttpRequest> {
     return this.http.put('/password', { data, headers: { 'Content-Type': 'application/json' } });
   }
+
+  searchUser(data: Record<string, string>): Promise<[] | undefined> {
+    return this.http.post('/search', { data, headers: { 'Content-Type': 'application/json' } });
+  }
 }

@@ -4,23 +4,41 @@ import { tmpl } from './chat.tmpl';
 import Block from '../../utils/Block';
 import { ChatListBlock } from './components/ChatList';
 import { MessageInputBlock } from './components/MessageInput';
-import { formSubmit, formSubmitValues } from '../../utils/helpers';
+import { formSubmitValues } from '../../utils/helpers';
 import router from '../../utils/router';
-import store, { State, withStore } from '../../utils/store';
+import { State, withStore } from '../../utils/store';
 import { ButtonBlock } from '../../components/Button';
 import { CardBlock } from '../../components/Card';
 import { FormBlock } from '../../components/Form';
 import ChatController from '../../controllers/ChatController';
+import { OptionsButton } from '../../components/OptionsButton';
+import messagesController from '../../controllers/MessagesController';
+import { Routes } from '../../utils/types';
 
-export class Chat extends Block {
+export class BaseChat extends Block {
   get sendMessageBlock(): Block {
-    const element = new MessageInputBlock({ events: { submit: (e: Event): void => formSubmit(e, element) }, name: 'message', error: false });
+    const element = new MessageInputBlock({
+      events: {
+        submit: (e: Event): void => {
+          const value = formSubmitValues(e, element) as { message: string };
+          if (value) {
+            messagesController.sendMessage(this.props.activeChat, value.message);
+            (document.getElementById('message') as HTMLTextAreaElement).value = '';
+          }
+        },
+      },
+      name: 'message',
+      error: false,
+    });
     return element;
   }
 
   init(): void {
-    this.children.chatList = new ChatListBlock({ propsWithChildren: {} });
-    this.children.messageList = new MessageListBlock();
+    this.children.chatList = new ChatListBlock({
+      activeChat: this.props.activeChat,
+      chats: [],
+    });
+    this.children.messageList = new MessageListBlock({ propsWithChildren: {} });
     this.children.messageInput = this.sendMessageBlock;
     this.children.AddChatButton = new ButtonBlock({ text: 'добавить чат', type: 'button', events: { click: (): void => { this.openCreateChatPopup(); } } });
     this.children.popup = new CardBlock({
@@ -31,6 +49,7 @@ export class Chat extends Block {
         inputs: [{ type: 'имя чата', name: 'title', label: 'Имя чата' }],
       }),
     });
+    this.children.optionsButton = new OptionsButton({ activeChat: this.props.activeChat });
     this.getChats();
   }
 
@@ -45,15 +64,20 @@ export class Chat extends Block {
     if (dialog) {
       dialog.scrollTop = dialog.scrollHeight;
     }
-    goProfile?.addEventListener('click', (): void => { router.go('/profile'); });
+    goProfile?.addEventListener('click', (): void => { router.go(Routes.Profile); });
 
     this.popup?.addEventListener('click', (e) => {
       this.closeCreateChatPopup(e);
     });
   }
 
-  closeCreateChatPopup(e: Event): void {
-    if (this.popup === e.target && this.popup) {
+  closeCreateChatPopup(e?: Event): void {
+    if (!this.popup) {
+      return;
+    }
+    if (this.popup === e?.target) {
+      this.popup.style.display = 'none';
+    } else if (!e) {
       this.popup.style.display = 'none';
     }
   }
@@ -64,10 +88,11 @@ export class Chat extends Block {
     }
   }
 
-  createChat(e: Event, inputs: Block[]): void {
+  async createChat(e: Event, inputs: Block[]): Promise<void> {
     e.preventDefault();
     const data = formSubmitValues(e, inputs);
-    ChatController.createChat(data as Record<string, string>);
+    await ChatController.createChat(data as Record<string, string>);
+    this.closeCreateChatPopup();
   }
 
   getChats(): void {
@@ -75,10 +100,26 @@ export class Chat extends Block {
   }
 
   get popup(): HTMLElement | null {
-    return document.getElementById('popup');
+    return document.getElementById('create_popup');
   }
 
   render(): DocumentFragment {
     return this.compile(tmpl, this.props);
   }
 }
+
+function mapStateToProps(state: State): unknown {
+  let chatName;
+  if (state.chats) {
+    state.chats.forEach((element) => {
+      if (element.id === state?.activeChat) {
+        chatName = element.title;
+      }
+    });
+  }
+  return {
+    chatName, chats: state.chats, activeChat: state?.activeChat,
+  };
+}
+
+export const Chat = withStore(mapStateToProps)(BaseChat);

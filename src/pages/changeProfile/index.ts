@@ -6,7 +6,7 @@ import { profileFields } from '../../static/data';
 import Block from '../../utils/Block';
 import { InputProps, Routes } from '../../utils/types';
 import { withStore, State } from '../../utils/store';
-import UserController from '../../controllers/ProfileController';
+import UserController from '../../controllers/UserController';
 
 const unDisabledFileds = profileFields.map((e) => ({
   ...e,
@@ -82,9 +82,7 @@ export class BaseChangeProfile extends Block {
 
   render(): DocumentFragment {
     return this.compile(`
-    <div>
-    {{avatar}}
-      {{{content}}}</div>
+      {{{content}}}
     `, { ...this.props });
   }
 }

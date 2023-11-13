@@ -24,22 +24,19 @@ export const tmpl = `
   </div>
 </div>
 <div  class=${css['dialog-wrapper']}>
+{{#if activeChat}}
   <div class=${css['dialog-header']}>
-        <div>
+        <div class=${css['dialog-header-item']}>
           <span class=${css['dialog-avatar']}>
           {{#if avatar}}
           <img width="34" height="34" src="https://ya-praktikum.tech/api/v2/resources/{{avatar}}">
         </svg>
           {{/if}} </span>
-          <span class=${css['dialog-name']}>Rick</span>
+          <span class=${css['dialog-name']}>{{chatName}}</span>
         </div>
-    <button>
-      <svg xmlns="http://www.w3.org/2000/svg" width="3" height="16" viewBox="0 0 3 16" fill="none">
-        <circle cx="1.5" cy="2" r="1.5" fill="#1E1E1E"/>
-        <circle cx="1.5" cy="8" r="1.5" fill="#1E1E1E"/>
-        <circle cx="1.5" cy="14" r="1.5" fill="#1E1E1E"/>
-      </svg>
-    </button>
+        <div>
+        {{{optionsButton}}}
+        </div>
   </div>
   <div id="dialog" class=${css.dialog}>
     {{{messageList}}}
@@ -47,8 +44,13 @@ export const tmpl = `
     {{{messageInput}}}
   </div>
 </div>
+{{else}}
+ <div class=${css['no-active-chat']}>
+ <div>Выберите чат</div>
+ </div>
+{{/if}}
 </div>
-<div id="popup" class=${css['popup-wrapper']}>
+<div id="create_popup" class=${css['popup-wrapper']}>
 {{{popup}}}
 </div>
 <div></main>

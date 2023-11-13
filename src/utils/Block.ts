@@ -141,8 +141,6 @@ class Block<P extends Record<string, any> = any> {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   protected componentDidUpdate(oldProps: P, newProps: P): boolean {
     return !isEqual(oldProps, newProps);
   }
@@ -151,7 +149,6 @@ class Block<P extends Record<string, any> = any> {
     if (!nextProps) {
       return;
     }
-    // console.log('cloneDeep', cloneDeep(this.props));
 
     Object.assign(this.props, nextProps);
   };
@@ -168,9 +165,10 @@ class Block<P extends Record<string, any> = any> {
     this._element!.append(fragment);
 
     this._addEvents();
+    this.mounted(this._element);
   }
 
-  mounted(lol?: Element): void {
+  mounted(_dom?: HTMLElement | DocumentFragment | null): void {
 
   }
 
@@ -228,12 +226,11 @@ class Block<P extends Record<string, any> = any> {
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target, prop: string, value): boolean {
-        const cloneOldTarget = cloneDeep(target);
-
         const newTarget = target;
 
+        const cloneOldTarget = cloneDeep(target);
+
         newTarget[prop as keyof P] = value;
-        console.log(cloneOldTarget, newTarget);
 
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, newTarget, cloneOldTarget);
         return true;
