@@ -20,6 +20,11 @@ type RequestOptions = {
   timeout?: number;
 };
 
+type HTTPMethods = <T = XMLHttpRequest>(
+  url: string,
+  options?: RequestOptions
+) => Promise<T>
+
 export class HTTPTransport {
   static API_URL = 'https://ya-praktikum.tech/api/v2';
 
@@ -29,15 +34,15 @@ export class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  get = (path: string, options: RequestOptions = {}): Promise<XMLHttpRequest> => this.request(this.endpoint + path, { ...options }, METHODS.GET);
+  get: HTTPMethods = (path: string, options = {}): Promise<any> => this.request(this.endpoint + path, { ...options }, METHODS.GET);
 
-  put = (path: string, options: RequestOptions): Promise<XMLHttpRequest> => this.request(this.endpoint + path, { ...options }, METHODS.PUT);
+  put: HTTPMethods = (path: string, options = {}): Promise<any> => this.request(this.endpoint + path, { ...options }, METHODS.PUT);
 
-  post = (path: string, options: RequestOptions = {}): Promise<XMLHttpRequest> => this.request(this.endpoint + path, { ...options }, METHODS.POST);
+  post: HTTPMethods = (path: string, options = {}): Promise<any> => this.request(this.endpoint + path, { ...options }, METHODS.POST);
 
-  delete = (path: string, options: RequestOptions): Promise<XMLHttpRequest> => this.request(this.endpoint + path, { ...options }, METHODS.DELETE);
+  delete: HTTPMethods = (path: string, options = {}): Promise<any> => this.request(this.endpoint + path, { ...options }, METHODS.DELETE);
 
-  request = (url: string, options: RequestOptions, method = METHODS.GET): Promise<XMLHttpRequest> => new Promise<XMLHttpRequest>((resolve, reject) => {
+  request = <T = any>(url: string, options: RequestOptions, method = METHODS.GET): Promise<T> => new Promise<T>((resolve, reject) => {
     const { headers = {}, data = {}, timeout = 5000 } = options;
     const compUrl = method === METHODS.GET ? `${url}${queryStringify(data as ObjectType)}` : url;
     const xhr = new XMLHttpRequest();

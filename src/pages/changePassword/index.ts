@@ -3,7 +3,8 @@ import { formSubmitValues, goBackFromProfile } from '../../utils/helpers';
 import { validate } from '../../utils/validators';
 import Block from '../../utils/Block';
 import { PasswordTypes, Routes } from '../../utils/types';
-import UserController from '../../controllers/ProfileController';
+import UserController from '../../controllers/UserController';
+import { State, withStore } from '../../utils/store';
 
 const changePasswordFields = [
   {
@@ -42,9 +43,10 @@ const buttons = [
   },
 ];
 
-export class ChangePassword extends Block {
+export class BaseChangePassword extends Block {
   init(): void {
     this.children.content = new PersonCardBlock({
+      avatar: this.props.avatar,
       inputs: changePasswordFields,
       buttons,
       event: this.updatePassword,
@@ -69,3 +71,9 @@ export class ChangePassword extends Block {
     `, {});
   }
 }
+
+function mapStateToProps(state: State): unknown {
+  return { avatar: state.user?.avatar };
+}
+
+export const ChangePassword = withStore(mapStateToProps)(BaseChangePassword);

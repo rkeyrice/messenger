@@ -9,11 +9,11 @@ export class ChatBlock extends Block {
   }
 
   init(): void {
-    // this.props.events = {
-    //   click: (): void => {
-    //     store.set('activeChats', this.props.id);
-    //   },
-    // };
+    this.props.events = {
+      click: (): void => {
+        store.set('activeChat', this.props.id);
+      },
+    };
   }
 
   render(): DocumentFragment {

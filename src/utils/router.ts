@@ -14,7 +14,7 @@ const render = (query: string, block: Block): Element => {
   root.innerHTML = '';
 
   root.append(block.getContent()!);
-  block.mounted(root);
+  block.mounted();
   return root;
 };
 

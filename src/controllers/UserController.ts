@@ -29,6 +29,14 @@ class UserController {
       console.log(error);
     }
   }
+
+  async searchUser(data: Record<string, string>): Promise<[] | undefined> {
+    try {
+      return await this.api.searchUser(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default new UserController();

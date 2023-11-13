@@ -33,11 +33,11 @@ export interface MessageInputBlockProps {
 
 export enum Routes {
     Index = '/',
-    Register = '/signup',
-    Profile = '/profile',
-    Chat = '/chat',
-    ChangeProfile = '/change-profile',
-    ChangePassword = '/change-password',
+    Register = '/sign-up',
+    Profile = '/settings',
+    Chat = '/messenger',
+    ChangeProfile = '/settings/profile',
+    ChangePassword = '/settings/password',
     Error500 = '/500',
     Error404 = '/404'
 }
@@ -68,9 +68,18 @@ export interface PasswordTypes {
 }
 
 export interface Chat {
-    id: string,
+    id: number,
     title: string,
     avatar: string,
     unread_count: number,
-    last_message: string
+    last_message: string,
+    active?: boolean
+}
+
+export interface MessageProps {
+    content: string;
+    time: string;
+    read?: boolean;
+    fromMe?: boolean;
+    user_id?: number
 }
