@@ -6,7 +6,7 @@ import { ChangePassword } from './src/pages/changePassword';
 import { ChangeProfile } from './src/pages/changeProfile';
 import { Profile } from './src/pages/profile';
 import { Chat } from './src/pages/chat';
-import router from './src/utils/router';
+import router from './src/utils/Router';
 import { Routes } from './src/utils/types';
 import AuthController from './src/controllers/AuthController';
 

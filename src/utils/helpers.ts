@@ -1,5 +1,5 @@
 import Block from './Block';
-import router from './router';
+import router from './Router';
 import { ISignInData } from '../api/AuthAPI';
 import { IUser, PasswordTypes } from './types';
 

@@ -1,7 +1,7 @@
 import {
   AuthAPI, ISignInData, IUser,
 } from '../api/AuthAPI';
-import Router from '../utils/router';
+import Router from '../utils/Router';
 import store from '../utils/store';
 import { Routes } from '../utils/types';
 
