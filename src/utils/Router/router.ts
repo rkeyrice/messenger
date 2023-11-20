@@ -1,4 +1,4 @@
-import Block from './Block';
+import Block from '../Block';
 
 function isEqual(lhs: string, rhs: string): boolean {
   return lhs === rhs;
@@ -54,10 +54,10 @@ class Route {
   }
 }
 
-class Router {
+export class Router {
   private static __instance: Router;
 
-  private routes: Route[] = [];
+  public routes: Route[] = [];
 
   private currentRoute: Route | null = null;
 
@@ -125,5 +125,3 @@ class Router {
     return this.routes.find((route) => route.match(pathname)) ?? this.routes.find((route) => route.match('/404'));
   }
 }
-
-export default new Router('#app');

@@ -3,7 +3,7 @@ import { FormBlock } from '../../components/Form';
 import { formSubmitValues } from '../../utils/helpers';
 import { validate } from '../../utils/validators';
 import Block from '../../utils/Block';
-import router from '../../utils/router';
+import router from '../../utils/Router';
 import { Routes } from '../../utils/types';
 import AuthController from '../../controllers/AuthController';
 import { ISignInData } from '../../api/AuthAPI';
