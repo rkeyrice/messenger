@@ -13,7 +13,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noImplicitAny":true,
+    "sourceMap":true,
+    "strictNullChecks":true
   },
   "ts-node": {
     "files": true
