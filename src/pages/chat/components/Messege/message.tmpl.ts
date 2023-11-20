@@ -2,7 +2,7 @@ import css from './message.module.scss';
 
 export const tmpl = `
  <li class="${css.message} {{#if fromMe}}${css['from-me']} {{/if}}">
-       {{message}}
+       {{content}}
    <div class=${css.time}>
                  {{#if fromMe}}
                  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="5" viewBox="0 0 11 5" fill="none">

@@ -13,7 +13,7 @@ export const tmpl = `
     <path fill-rule="evenodd" clip-rule="evenodd" d="M9.70092 16.0144C7.95751 17.7578 7.95123 20.5782 9.68689 22.3138C11.4226 24.0495 14.2429 24.0432 15.9863 22.2998L15.0435 21.357C13.8231 22.5774 11.8489 22.5818 10.6339 21.3668C9.41894 20.1518 9.42334 18.1776 10.6437 16.9572L9.70092 16.0144Z" fill="#999999"/>
   </svg>
 </button>
-<textarea name="message" value="{{value}}" placeholder="Сообщение"></textarea>
+<textarea id="message" name="message" value="{{value}}" placeholder="Сообщение"></textarea>
 <span>{{{arrowButton}}}</span>
 </div>
 {{#if error}}<div class=${css['dialog-textarea-error']}>нельзя отправить пустое сообщение</div>{{/if}}
