@@ -5,7 +5,7 @@ import Block from '../../utils/Block';
 import { ChatListBlock } from './components/ChatList';
 import { MessageInputBlock } from './components/MessageInput';
 import { formSubmitValues } from '../../utils/helpers';
-import router from '../../utils/router';
+import router from '../../utils/Router';
 import { State, withStore } from '../../utils/store';
 import { ButtonBlock } from '../../components/Button';
 import { CardBlock } from '../../components/Card';

@@ -1,7 +1,7 @@
 import { tmpl } from './error.tmpl';
 import Block from '../../utils/Block';
 import { ButtonBlock } from '../Button';
-import router from '../../utils/router';
+import router from '../../utils/Router';
 import { Routes } from '../../utils/types';
 
 interface ErrorProps {
@@ -16,7 +16,7 @@ export class ErrorBlock extends Block {
 
   init(): void {
     this.children.button = new ButtonBlock({
-      likeLink: true, text: 'назад к чатам', type: 'button', events: { click: ():void => router.go(Routes.Chat) },
+      likeLink: true, text: 'назад к чатам', type: 'button', events: { click: (): void => router.go(Routes.Chat) },
     });
   }
 

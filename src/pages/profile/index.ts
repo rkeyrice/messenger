@@ -3,7 +3,7 @@ import { goBackFromProfile } from '../../utils/helpers';
 
 import { profileFields } from '../../static/data';
 import Block from '../../utils/Block';
-import router from '../../utils/router';
+import router from '../../utils/Router';
 import { InputProps, Routes } from '../../utils/types';
 import { withStore, State } from '../../utils/store';
 import AuthController from '../../controllers/AuthController';
